@@ -1,4 +1,4 @@
-package solutions.ex07_worker_queue;
+package solutions.ex08_nice_worker;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -17,7 +17,7 @@ import io.nats.client.Options;
 public class MandelbrotBuilder {
     public static void main(String args[]) {
         try {
-            String workSubject = "ex07_work";
+            String workSubject = "ex08_work";
             String serverURL = System.getenv("SP_NATS_SERVER");
 
             if (serverURL == null) {
