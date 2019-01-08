@@ -31,7 +31,6 @@ public class MandelbrotPullServer {
                                         build();
             Connection nc = Nats.connect(options);
 
-            int max = 255;
             int width = 1920;
             int height = 1080;
             AtomicInteger remaining = new AtomicInteger(width * height);
