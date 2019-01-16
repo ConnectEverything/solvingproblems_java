@@ -1,11 +1,13 @@
-package solutions.ex14_firehouse;
+package solutions.ex15_firehouse_two;
 
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 
 import io.nats.client.Connection;
 import io.nats.client.ConnectionListener;
 import io.nats.client.Consumer;
 import io.nats.client.ErrorListener;
+import io.nats.client.Message;
 import io.nats.client.Nats;
 import io.nats.client.Options;
 import io.nats.client.Subscription;
@@ -48,7 +50,7 @@ class SimpleErrorListener implements ErrorListener {
 public class Subscriber {
     public static void main(String args[]) {
         try {
-            String subject = "ex14";
+            String subject = "ex15";
             String serverURL = System.getenv("SP_NATS_SERVER");
 
             if (serverURL == null) {
@@ -68,11 +70,19 @@ public class Subscriber {
             sub.setPendingLimits(100, 1024*8);
 
             long count = 0;
+            long last = -1;
 
             System.out.println();
             System.out.print("Listening ");
             while (true) {
-                sub.nextMessage(Duration.ZERO);
+                Message msg = sub.nextMessage(Duration.ZERO);
+                long sequence = Long.parseLong(new String(msg.getData(), StandardCharsets.UTF_8));
+
+                if (sequence != last + 1) {
+                    System.out.print("x");
+                }
+
+                last = sequence;
                 count++;
 
                 if (count == 1_000) {
