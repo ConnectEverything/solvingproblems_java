@@ -9,3 +9,7 @@ in the solutions folder in case students want to repeat the setup.
 1. Open 2 terminals.
 2. In the first terminal, run `gnatsd -p 4222 -cluster nats://localhost:5222 -routes nats://localhost:5223`.
 3. In the second terminal, run `gnatsd -p 4223 -cluster nats://localhost:5223 -routes nats://localhost:5222`.
+
+## Run the local TLS Server
+
+1. Run `gnatsd -c resources/tls/tlsverify.conf`, port is 4443
