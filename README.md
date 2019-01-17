@@ -10,6 +10,6 @@ To compile, run `./gradlew fatjar`. This will build a single jar with all of the
 `build/libs/solvingproblems_java-1.0-fat.jar`. To run a solution or your own version, you simply need to include 
 this jar in the class path. For example:
 
-```java
+```bash
 java -cp build/libs/solvingproblems_java-1.0-fat.jar solutions.ex01_connecting.Connecting
 ```
