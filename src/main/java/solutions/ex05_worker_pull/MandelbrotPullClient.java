@@ -22,8 +22,8 @@ public class MandelbrotPullClient {
             Options options = new Options.Builder().server(serverURL).build();
             Connection nc = Nats.connect(options);
             int max = 255;
-            double width = 1920;
-            double height = 1080;
+            int width = 800;
+            int height = 600;
 
             while (true) {
                 Message msg = nc.request(workSubject, null, Duration.ofSeconds(10));

@@ -31,12 +31,11 @@ public class MandelbrotPullServer {
                                         build();
             Connection nc = Nats.connect(options);
 
-            int width = 1920;
-            int height = 1080;
+            int width = 800;
+            int height = 600;
             AtomicInteger remaining = new AtomicInteger(width * height);
             BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
             ConcurrentLinkedQueue<String> workQueue = new ConcurrentLinkedQueue<>();
-            ConcurrentLinkedQueue<String> outForWorkQueue = new ConcurrentLinkedQueue<>();
             Random random = new Random();
             Color palette[] = new Color[256];
             for (int i=1; i<256; i++) {
@@ -53,12 +52,9 @@ public class MandelbrotPullServer {
 
             Dispatcher d = nc.createDispatcher((msg)-> {
                 String work = workQueue.poll();
-                if (work == null) {
-                    work = outForWorkQueue.poll(); // try to get an old one that didn't come in yet
-                } else {
-                    outForWorkQueue.add(work);
+                if (work != null) {
+                    nc.publish(msg.getReplyTo(), null, work.getBytes(StandardCharsets.UTF_8));
                 }
-                nc.publish(msg.getReplyTo(), null, work.getBytes(StandardCharsets.UTF_8));
             });
             d.subscribe(workSubject);
 
@@ -76,12 +72,6 @@ public class MandelbrotPullServer {
 
                 image.setRGB(col, row, color.getRGB());
 
-                if (remaining.get()%100_000 == 0) {
-                    System.out.print(".");
-                }
-
-                String work = String.format("%d,%d", col, row);
-                outForWorkQueue.remove(work);
                 if (remaining.decrementAndGet() == 0) {
                     System.out.println(" done");
                     try {
@@ -92,6 +82,10 @@ public class MandelbrotPullServer {
                         nc.close();
                         System.exit(0);
                     }
+                }
+
+                if (remaining.get()%10_000 == 0) {
+                    System.out.print(".");
                 }
             });
             d2.subscribe(completeSubject);
