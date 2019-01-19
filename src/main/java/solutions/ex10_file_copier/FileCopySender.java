@@ -48,7 +48,7 @@ public class FileCopySender {
                 }
 
                 String response = String.format("%d|%d|%s", index, words.length, words[index]);
-                System.out.printf("Replaying %s\n", response);
+                System.out.printf("Replaying %d %d %s\n", index, words.length, words[index]);
                 nc.publish(msg.getReplyTo(), null, response.getBytes(StandardCharsets.UTF_8));
             });
             d.subscribe(replaySubject);
