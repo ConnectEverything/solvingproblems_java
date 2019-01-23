@@ -42,6 +42,7 @@ public class Autofill {
                 }
 
                 response =  new String(msg.getData(), StandardCharsets.UTF_8);
+                break;
             }
             sub.unsubscribe();
 
