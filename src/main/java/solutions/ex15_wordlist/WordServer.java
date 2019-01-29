@@ -1,4 +1,4 @@
-package solutions.ex16_wordlist;
+package solutions.ex15_wordlist;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

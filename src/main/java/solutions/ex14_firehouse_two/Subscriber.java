@@ -1,4 +1,4 @@
-package solutions.ex15_firehouse_two;
+package solutions.ex14_firehouse_two;
 
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;

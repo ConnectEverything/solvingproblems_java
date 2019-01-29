@@ -1,5 +1,5 @@
 
-package solutions.ex19_search;
+package solutions.ex18_search;
 
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;

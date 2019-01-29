@@ -1,5 +1,5 @@
 
-package solutions.ex18_autocomplete;
+package solutions.ex17_autocomplete;
 
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
