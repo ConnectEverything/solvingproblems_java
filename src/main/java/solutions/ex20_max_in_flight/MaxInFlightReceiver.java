@@ -3,7 +3,6 @@ package solutions.ex20_max_in_flight;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import io.nats.streaming.NatsStreaming;
